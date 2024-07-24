@@ -100,11 +100,13 @@ const CalendarView = (props: any) => {
                       background: "linear-gradient(#FFFFFF, #00F0FF)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
+                      fontWeight: "bold",
                     }),
                     ...(slot === "Occupied" && {
                       background: "linear-gradient(#FFFFFF, #FF0000)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
+                      fontWeight: "bold",
                     }),
                   }}
                 >
