@@ -78,6 +78,7 @@ const CalendarContainer = styled("div")`
   border-radius: 15px; /* Adjust for rounded corners */
 `;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CalendarView = (props: any) => {
   return (
     <CalendarContainer
