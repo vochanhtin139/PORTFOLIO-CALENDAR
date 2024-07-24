@@ -30,8 +30,7 @@ const Item = styled(Sheet)(({ theme }) => ({
     background: "linear-gradient(to bottom right, #FF7A00, #0C0099)", // Gradient color from top left to bottom right
     WebkitMask:
       "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-    mask:
-      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+    mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
     WebkitMaskComposite: "xor",
     maskComposite: "exclude",
   },
@@ -69,14 +68,23 @@ const days = [
 ];
 
 const CalendarContainer = styled("div")`
-  background: linear-gradient(to bottom right, #FF7A00, #0C0099); /* Adjust the gradient */
+  background: linear-gradient(
+    to bottom right,
+    #ff7a00,
+    #0c0099
+  ); /* Adjust the gradient */
   padding: 2px; /* Adjust the spacing */
   border-radius: 8px; /* Adjust for rounded corners */
 `;
 
 const CalendarView = (props: any) => {
   return (
-    <CalendarContainer {...props}>
+    <CalendarContainer
+      {...props}
+      style={{
+        overflowY: "scroll",
+      }}
+    >
       <style>{`
         div::-webkit-scrollbar {
           display: none; /* For Chrome, Safari, and Opera */
@@ -93,7 +101,7 @@ const CalendarView = (props: any) => {
           "21 ~ 22.30",
         ].map((timeSlot, index) => (
           <Grid xs={index === 0 ? 3 : true} key={index} fontSize={24}>
-            <Item>
+            <Item style={{ ...(index === 0 && { fontSize: 32 }) }}>
               {timeSlot}
             </Item>
           </Grid>
@@ -103,10 +111,10 @@ const CalendarView = (props: any) => {
       {days.map((day, dayIndex) => (
         <Grid container spacing={1} sx={{ flexGrow: 1 }} key={dayIndex}>
           <Grid xs={3}>
-            <Item>{day.day}</Item>
+            <Item style={{ fontSize: 32 }}>{day.day}</Item>
           </Grid>
           {day.slots.map((slot, slotIndex) => (
-            <Grid xs key={slotIndex}>
+            <Grid xs key={slotIndex} fontSize={24}>
               <Item>
                 <span
                   style={{
