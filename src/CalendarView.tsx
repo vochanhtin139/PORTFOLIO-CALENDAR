@@ -26,9 +26,8 @@ const Item = styled(Sheet)(({ theme }) => ({
     right: 0,
     bottom: 0,
     left: 0,
-    borderRadius: 4, // Match the border radius of the container
-    padding: 7, // Space between the gradient border and the content
-    background: "linear-gradient(45deg, #FF7A00, #0C0099)", // Gradient color
+    borderRadius: 4, // Match the border radius    padding: 2, // Space between the gradient border and the content
+    background: "linear-gradient(to bottom right, #FF7A00, #0C0099)", // Gradient color from top left to bottom right
     WebkitMask:
       "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
     mask:
@@ -69,21 +68,21 @@ const days = [
   },
 ];
 
+const CalendarContainer = styled("div")`
+  background: linear-gradient(to bottom right, #FF7A00, #0C0099); /* Adjust the gradient */
+  padding: 2px; /* Adjust the spacing */
+  border-radius: 8px; /* Adjust for rounded corners */
+`;
+
 const CalendarView = (props: any) => {
   return (
-    <div
-      {...props}
-      style={{
-        overflowY: "scroll",
-      }}
-    >
-      {/* <GlobalStyle /> */}
+    <CalendarContainer {...props}>
       <style>{`
         div::-webkit-scrollbar {
           display: none; /* For Chrome, Safari, and Opera */
         }
       `}</style>
-      <Grid container spacing={0} sx={{ flexGrow: 1 }}>
+      <Grid container spacing={1} sx={{ flexGrow: 1 }}>
         {[
           "N/A",
           "8 ~ 9.30",
@@ -94,7 +93,7 @@ const CalendarView = (props: any) => {
           "21 ~ 22.30",
         ].map((timeSlot, index) => (
           <Grid xs={index === 0 ? 3 : true} key={index} fontSize={24}>
-            <Item style={{ ...(index === 0 && { fontSize: 32 }) }}>
+            <Item>
               {timeSlot}
             </Item>
           </Grid>
@@ -102,12 +101,12 @@ const CalendarView = (props: any) => {
       </Grid>
 
       {days.map((day, dayIndex) => (
-        <Grid container spacing={0} sx={{ flexGrow: 1 }} key={dayIndex}>
+        <Grid container spacing={1} sx={{ flexGrow: 1 }} key={dayIndex}>
           <Grid xs={3}>
-            <Item style={{ fontSize: 32 }}>{day.day}</Item>
+            <Item>{day.day}</Item>
           </Grid>
           {day.slots.map((slot, slotIndex) => (
-            <Grid xs key={slotIndex} fontSize={24}>
+            <Grid xs key={slotIndex}>
               <Item>
                 <span
                   style={{
@@ -132,7 +131,7 @@ const CalendarView = (props: any) => {
           ))}
         </Grid>
       ))}
-    </div>
+    </CalendarContainer>
   );
 };
 
