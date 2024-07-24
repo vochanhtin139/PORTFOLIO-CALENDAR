@@ -13,12 +13,13 @@ const Item = styled(Sheet)(({ theme }) => ({
   color: "#FFFFFF",
   fontFamily: "K2D",
   fontSize: 24,
-  height: "calc((100vh - 24px - 36px - 16px) / 9.5)",
+  height: "calc((100vh - 24px - 36px - 16px) / 9.67)",
   textAlign: "center",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  borderRadius: 4, // Adjust for rounded corners
+  margin: 3,
+  borderRadius: 15, // Adjust for rounded corners,
   "&::before": {
     content: '""',
     position: "absolute",
@@ -71,7 +72,7 @@ const days = [
 const CalendarContainer = styled("div")`
   background: linear-gradient(to bottom right, #FF7A00, #0C0099); /* Adjust the gradient */
   padding: 2px; /* Adjust the spacing */
-  border-radius: 8px; /* Adjust for rounded corners */
+  border-radius: 15px; /* Adjust for rounded corners */
 `;
 
 const CalendarView = (props: any) => {
@@ -82,7 +83,7 @@ const CalendarView = (props: any) => {
           display: none; /* For Chrome, Safari, and Opera */
         }
       `}</style>
-      <Grid container spacing={1} sx={{ flexGrow: 1 }}>
+      <Grid container sx={{ flexGrow: 1 }}>
         {[
           "N/A",
           "8 ~ 9.30",
@@ -101,7 +102,7 @@ const CalendarView = (props: any) => {
       </Grid>
 
       {days.map((day, dayIndex) => (
-        <Grid container spacing={1} sx={{ flexGrow: 1 }} key={dayIndex}>
+        <Grid container sx={{ flexGrow: 1 }} key={dayIndex}>
           <Grid xs={3}>
             <Item>{day.day}</Item>
           </Grid>
