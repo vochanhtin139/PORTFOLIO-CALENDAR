@@ -2,10 +2,9 @@ import Grid from "@mui/joy/Grid";
 import { styled } from "@mui/joy/styles";
 import Sheet from "@mui/joy/Sheet";
 import PropTypes from "prop-types";
-import K2D from "../src/assets/fonts/K2D-Regular.ttf";
-import { colors } from "@mui/joy";
 
 const Item = styled(Sheet)(({ theme }) => ({
+  position: "relative",
   backgroundColor:
     theme.palette.mode === "dark"
       ? theme.palette.background.level1
@@ -14,14 +13,29 @@ const Item = styled(Sheet)(({ theme }) => ({
   color: "#FFFFFF",
   fontFamily: "K2D",
   fontSize: 24,
-  height: "calc((100vh - 24px - 36px - 16px) / 10)", // Adjusted height
+  height: "calc((100vh - 24px - 36px - 16px) / 9.5)",
   textAlign: "center",
-  // border: "1",
-  // borderColor: "linear-gradient(#FF7A00, #0C0099)",
-  // color: theme.vars.palette.text.secondary,
-  display: "flex", // Added to center content
+  display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  borderRadius: 4, // Adjust for rounded corners
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    borderRadius: 4, // Match the border radius of the container
+    padding: 7, // Space between the gradient border and the content
+    background: "linear-gradient(45deg, #FF7A00, #0C0099)", // Gradient color
+    WebkitMask:
+      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+    mask:
+      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+    WebkitMaskComposite: "xor",
+    maskComposite: "exclude",
+  },
 }));
 
 const days = [
@@ -63,12 +77,13 @@ const CalendarView = (props: any) => {
         overflowY: "scroll",
       }}
     >
+      {/* <GlobalStyle /> */}
       <style>{`
         div::-webkit-scrollbar {
           display: none; /* For Chrome, Safari, and Opera */
         }
       `}</style>
-      <Grid container spacing={1} sx={{ flexGrow: 1 }}>
+      <Grid container spacing={0} sx={{ flexGrow: 1 }}>
         {[
           "N/A",
           "8 ~ 9.30",
@@ -87,7 +102,7 @@ const CalendarView = (props: any) => {
       </Grid>
 
       {days.map((day, dayIndex) => (
-        <Grid container spacing={1} sx={{ flexGrow: 1 }} key={dayIndex}>
+        <Grid container spacing={0} sx={{ flexGrow: 1 }} key={dayIndex}>
           <Grid xs={3}>
             <Item style={{ fontSize: 32 }}>{day.day}</Item>
           </Grid>
