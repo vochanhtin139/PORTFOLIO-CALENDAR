@@ -2,6 +2,7 @@ import Grid from "@mui/joy/Grid";
 import { styled } from "@mui/joy/styles";
 import Sheet from "@mui/joy/Sheet";
 import PropTypes from "prop-types";
+import { PopupDialog } from "./PopupDialog";
 
 const Item = styled(Sheet)(({ theme }) => ({
   position: "relative",
@@ -118,8 +119,10 @@ const CalendarView = (props: any) => {
           {day.slots.map((slot, slotIndex) => (
             <Grid xs key={slotIndex} fontSize={24}>
               <Item>
+                <PopupDialog/>
                 <span
                   style={{
+                    zIndex: 100,
                     ...(slot === "Pending" && {
                       background: "linear-gradient(#FFFFFF, #00F0FF)",
                       WebkitBackgroundClip: "text",
