@@ -7,22 +7,20 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export const PopupDialog = (slot) => {
-  const [open, setOpen] = React.useState(false);
+export const PopupDialog = (props: {open: boolean; setOpen: any}) => {
 
   const handleClickOpen = () => {
-    setOpen(true);
+    props.setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    props.setOpen(false);
   };
 
   return (
     <React.Fragment>
-      <Button className="z-1 absolute" onClick={handleClickOpen}></Button>
       <Dialog
-        open={open}
+        open={props.open}
         onClose={handleClose}
         PaperProps={{
           component: "form",

@@ -3,6 +3,7 @@ import { styled } from "@mui/joy/styles";
 import Sheet from "@mui/joy/Sheet";
 import PropTypes from "prop-types";
 import { PopupDialog } from "./PopupDialog";
+import { useState } from "react";
 
 const Item = styled(Sheet)(({ theme }) => ({
   position: "relative",
@@ -81,6 +82,8 @@ const CalendarContainer = styled("div")`
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CalendarView = (props: any) => {
+  const [open, setOpen] = useState(false);
+
   return (
     <CalendarContainer
       {...props}
@@ -118,8 +121,7 @@ const CalendarView = (props: any) => {
           </Grid>
           {day.slots.map((slot, slotIndex) => (
             <Grid xs key={slotIndex} fontSize={24}>
-              <Item>
-                <PopupDialog/>
+              <Item onClick={() => {setOpen(true)}}>
                 <span
                   style={{
                     zIndex: 100,
@@ -144,6 +146,8 @@ const CalendarView = (props: any) => {
           ))}
         </Grid>
       ))}
+
+      <PopupDialog open={open} setOpen={setOpen} />
     </CalendarContainer>
   );
 };
