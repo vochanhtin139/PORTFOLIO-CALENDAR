@@ -121,7 +121,11 @@ const CalendarView = (props: any) => {
           </Grid>
           {day.slots.map((slot, slotIndex) => (
             <Grid xs key={slotIndex} fontSize={24}>
-              <Item onClick={() => {setOpen(true)}}>
+              <Item
+                onClick={() => {
+                  setOpen(true);
+                }}
+              >
                 <span
                   style={{
                     zIndex: 100,
