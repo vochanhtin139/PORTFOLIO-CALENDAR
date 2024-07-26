@@ -131,7 +131,7 @@ export const PopupDialog = (props: {
                   id="bootstrap-input-name"
                   defaultValue=""
                   placeholder="Enter your name..."
-                  className="w-full"
+                  className="w-full "
                 />
               </div>
               <StyledButton variant="outlined" startIcon={<TwitterOutlined />}>
@@ -161,7 +161,7 @@ export const PopupDialog = (props: {
                 aria-label="minimum height"
                 minRows={10}
                 placeholder="write something..."
-                sx={{ bgcolor: "#F3F6F9" }}
+                sx={{ bgcolor: "#F3F6F9", borderRadius: 8 }}
               />
             </div>
           </FormControl>
