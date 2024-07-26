@@ -11,6 +11,37 @@ import { TwitterOutlined } from "@ant-design/icons";
 import { Textarea } from "@mui/joy";
 import { LoadingButton } from "@mui/lab";
 import SendIcon from "@mui/icons-material/Send";
+import { styled } from "@mui/material/styles";
+
+const StyledButton = styled(Button)({
+  marginTop: 39,
+  height: 45,
+  boxShadow: "none",
+  textTransform: "none",
+  fontSize: 16,
+  padding: "6px 12px",
+  border: "1px solid",
+  borderRadius: 8,
+  lineHeight: 1.5,
+  color: "#656BFF",
+  backgroundColor: "#fff",
+  borderColor: "linear-gradient(#FF0000,#0029FF)",
+  fontFamily: "K2D",
+  "&:hover": {
+    backgroundColor: "#0069d9",
+    color: "#fff",
+    borderColor: "#0062cc",
+    boxShadow: "none",
+  },
+  "&:active": {
+    boxShadow: "none",
+    backgroundColor: "#0062cc",
+    borderColor: "#005cbf",
+  },
+  "&:focus": {
+    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+  },
+});
 
 export const PopupDialog = (props: {
   open: boolean;
@@ -28,16 +59,25 @@ export const PopupDialog = (props: {
       setLoading(false);
       handleClose();
     }, 2000);
-  }
+  };
 
   return (
     <React.Fragment>
       <Dialog
+        sx={{
+          color: "#000000",
+          fontFamily: "K2D",
+          fontSize: 24,
+          fontWeight: "bold",
+        }}
         open={props.open}
         onClose={handleClose}
-        maxWidth="md"
+        maxWidth="sm"
         fullWidth={true}
         PaperProps={{
+          style: {
+            borderRadius: 15,
+          },
           component: "form",
           onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
@@ -50,10 +90,25 @@ export const PopupDialog = (props: {
         }}
       >
         <DialogTitle>
-          <div className="flex justify-between">
+          <div
+            className="flex justify-between"
+            style={{
+              fontSize: 32,
+              fontFamily: "K2D",
+              fontWeight: "bold",
+              background: "-webkit-linear-gradient(45deg,#FF00C7, #001AFF)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
             <h1>Monday, July 8th</h1>
             <h1>19:30 ~ 21</h1>
             <HighlightOffOutlinedIcon
+              style={{
+                color: "C00F0C",
+                width: 48,
+                height: 48,
+              }}
               onClick={() => {
                 props.setOpen(false);
               }}
@@ -61,9 +116,9 @@ export const PopupDialog = (props: {
           </div>
         </DialogTitle>
         <DialogContent>
-          <h1 className="mb-5">
-            <span className="font-bold">STATUS</span>:{" "}
-            <span className="font-bold text-green-600">FREE</span>
+          <h1 className="mb-5" style={{ fontSize: 32 }}>
+            <span className="font-extrabold">STATUS</span>:{" "}
+            <span className="font-extrabold text-green-600">FREE</span>
           </h1>
           <FormControl variant="standard" className="w-full">
             <div className="flex justify-between">
@@ -71,7 +126,7 @@ export const PopupDialog = (props: {
                 {/* <InputLabel shrink htmlFor="bootstrap-input-name">
                   Name
                 </InputLabel> */}
-                <p className="text-sm mb-1">Name</p>
+                <p className=" mb-1">Name:</p>
                 <BootstrapInput
                   id="bootstrap-input-name"
                   defaultValue=""
@@ -79,20 +134,16 @@ export const PopupDialog = (props: {
                   className="w-full"
                 />
               </div>
-              <Button
-                variant="outlined"
-                startIcon={<TwitterOutlined />}
-                className="ml-4"
-              >
-                Delete
-              </Button>
+              <StyledButton variant="outlined" startIcon={<TwitterOutlined />}>
+                LinkedIn
+              </StyledButton>
             </div>
 
             <div className="mt-4">
               {/* <InputLabel shrink htmlFor="bootstrap-input-title">
                 Title
               </InputLabel> */}
-              <p className="text-sm mb-1">Title</p>
+              <p className="mb-1">Title:</p>
               <BootstrapInput
                 id="bootstrap-input-title"
                 defaultValue=""
@@ -105,7 +156,7 @@ export const PopupDialog = (props: {
               {/* <InputLabel shrink htmlFor="bootstrap-input-title">
                 Title
               </InputLabel> */}
-              <p className="text-sm mb-1">Description</p>
+              <p className="mb-1">Description:</p>
               <Textarea
                 aria-label="minimum height"
                 minRows={10}
@@ -126,7 +177,7 @@ export const PopupDialog = (props: {
               variant="outlined"
               style={{ margin: "0px 0px 16px 0px" }}
             >
-              <span>Send</span>
+              <span style={{ color: "black", fontWeight: "bolder" }}>Book</span>
             </LoadingButton>
           </div>
         </DialogActions>
