@@ -77,6 +77,9 @@ export const PopupDialog = (props: {
         PaperProps={{
           style: {
             borderRadius: 15,
+            borderImage: "linear-gradient(#FF6B00,#0047FF) 1",
+            borderStyle: "solid",
+            borderWidth: 5,
           },
           component: "form",
           onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
@@ -161,7 +164,13 @@ export const PopupDialog = (props: {
                 aria-label="minimum height"
                 minRows={10}
                 placeholder="write something..."
-                sx={{ bgcolor: "#F3F6F9", borderRadius: 8 }}
+                sx={{
+                  bgcolor: "#F3F6F9",
+                  borderRadius: 8,
+                  borderImage: "linear-gradient(to right, #FF0000, #0029FF) 1",
+                  borderStyle: "solid",
+                  borderWidth: 3,
+                }}
               />
             </div>
           </FormControl>
