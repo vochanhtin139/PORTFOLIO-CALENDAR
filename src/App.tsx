@@ -57,7 +57,7 @@ function App() {
         key={"top" + "center"}
         color="success"
         size="sm"
-        autoHideDuration={2000}
+        autoHideDuration={3000}
       >
         Appointment has been successfully booked!
       </Snackbar>

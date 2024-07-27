@@ -50,10 +50,17 @@ export const PopupDialog = (props: {
   setSnackbarState: any;
 }) => {
   const [loading, setLoading] = React.useState(false);
+  const [linkedinLoading, setLinkedinLoading] = React.useState(false);
+  const [linkedinButtonContent, setLinkedinButtonContent] = React.useState("Linkedin")
+  const [inputName, setInputName] = React.useState("")
+  const [inputTitle, setInputTitle] = React.useState("")
+  const [inputDescription, setInputDescription] = React.useState("")
 
   const handleClose = () => {
     props.setOpen(false);
-    props.setSnackbarState(true);
+    setInputName("")
+    setInputTitle("")
+    setInputDescription("")
   };
 
   const handleClick = () => {
@@ -61,6 +68,7 @@ export const PopupDialog = (props: {
     setTimeout(() => {
       setLoading(false);
       handleClose();
+      props.setSnackbarState(true);
     }, 2000);
   };
 
@@ -142,12 +150,14 @@ export const PopupDialog = (props: {
                 <BootstrapInput
                   id="bootstrap-input-name"
                   defaultValue=""
+                  value={inputName}
                   placeholder="Enter your name..."
                   className="w-full "
                 />
               </div>
               <div className="flex flex-col-reverse">
-                <Button
+                <LoadingButton
+                  loading={linkedinLoading}
                   startIcon={
                     <img
                       style={{ width: "20px", height: "20px" }}
@@ -158,6 +168,18 @@ export const PopupDialog = (props: {
                   // startIcon={<TwitterOutlined />}
                   variant="outlined"
                   size="large"
+                  loadingPosition="start"
+                  onClick={() => {
+                    setLinkedinLoading(true);
+                    setLinkedinButtonContent("signing in...")
+                    setTimeout(() => {
+                      setLinkedinLoading(false);
+                      setLinkedinButtonContent("Linkedin")
+                      setInputName("Nguyen Van A")
+                      // setInputTitle("[COLLABORATION] Looking for a software engineer")
+                      // setInputDescription("I am looking for a software engineer to work on a new project. Please contact me if you are interested.")
+                    }, 2000);
+                  }}
                   style={{
                     color: "#656BFF",
                     border: "3px solid transparent",
@@ -183,8 +205,8 @@ export const PopupDialog = (props: {
                     ].join(","),
                   }}
                 >
-                  LinkedIn
-                </Button>
+                  {linkedinButtonContent}
+                </LoadingButton>
                 {/* <StyledButton
                   className="absolute my-4"
                   variant="outlined"
@@ -203,6 +225,7 @@ export const PopupDialog = (props: {
               <BootstrapInput
                 id="bootstrap-input-title"
                 defaultValue=""
+                value={inputTitle}
                 placeholder="Enter the title..."
                 className="w-full"
               />
@@ -214,6 +237,7 @@ export const PopupDialog = (props: {
               </InputLabel> */}
               <p className="mb-1">Description:</p>
               <Textarea
+                defaultValue={inputDescription}
                 aria-label="minimum height"
                 minRows={10}
                 placeholder="write something..."
@@ -235,9 +259,9 @@ export const PopupDialog = (props: {
             <LoadingButton
               size="small"
               onClick={handleClick}
-              endIcon={<SendIcon />}
+              startIcon={<SendIcon />}
               loading={loading}
-              loadingPosition="end"
+              loadingPosition="start"
               variant="outlined"
               style={{
                 margin: "0px 0px 16px 0px",

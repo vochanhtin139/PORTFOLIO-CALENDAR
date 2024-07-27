@@ -42,7 +42,7 @@ const Item = styled(Sheet)(({ theme }) => ({
 const days = [
   {
     day: "Mon, Jul 8th",
-    slots: [" --- ", " --- ", " --- ", " --- ", " --- ", "Pending"],
+    slots: [" --- ", " --- ", " --- ", "Free", " --- ", "Pending"],
   },
   {
     day: "Tue, Jul 9th",
@@ -50,7 +50,7 @@ const days = [
   },
   {
     day: "Wed, Jul 10th",
-    slots: [" --- ", " --- ", " --- ", " --- ", " --- ", "Occupied"],
+    slots: [" --- ", " --- ", " --- ", " --- ", "Free", "Occupied"],
   },
   {
     day: "Thu, Jul 11th",
@@ -62,11 +62,11 @@ const days = [
   },
   {
     day: "Sat, Jul 13th",
-    slots: [" --- ", "Pending", " --- ", " --- ", "Pending", " --- "],
+    slots: [" --- ", "Pending", " --- ", "Free", "Pending", "Free"],
   },
   {
     day: "Sun, Jul 14th",
-    slots: [" --- ", " --- ", " --- ", "Occupied", " --- ", "Occupied"],
+    slots: ["Free", "Free", "Free", "Occupied", "Free", "Occupied"],
   },
 ];
 
@@ -120,6 +120,7 @@ const CalendarView = (props: {snackbarState: any, setSnackbarState: any}) => {
             <Grid xs key={slotIndex} fontSize={24}>
               <Item
                 onClick={() => {
+                  if (slot !== " --- ")
                   setOpen(true);
                 }}
               >
@@ -134,6 +135,12 @@ const CalendarView = (props: {snackbarState: any, setSnackbarState: any}) => {
                     }),
                     ...(slot === "Occupied" && {
                       background: "linear-gradient(#FFFFFF, #FF0000)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      fontWeight: "bold",
+                    }),
+                    ...(slot === "Free" && {
+                      background: "linear-gradient(#FFFFFF, #00FF00)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       fontWeight: "bold",
