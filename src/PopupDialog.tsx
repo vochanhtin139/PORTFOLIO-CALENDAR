@@ -48,6 +48,7 @@ export const PopupDialog = (props: {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   snackbarState: any;
   setSnackbarState: any;
+  handleBookSuccessfully: any;
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [linkedinLoading, setLinkedinLoading] = React.useState(false);
@@ -69,6 +70,7 @@ export const PopupDialog = (props: {
       setLoading(false);
       handleClose();
       props.setSnackbarState(true);
+      props.handleBookSuccessfully();
     }, 2000);
   };
 
@@ -151,6 +153,7 @@ export const PopupDialog = (props: {
                   id="bootstrap-input-name"
                   defaultValue=""
                   value={inputName}
+                  onChange={(e) => setInputName(e.target.value)}
                   placeholder="Enter your name..."
                   className="w-full "
                 />
@@ -226,6 +229,7 @@ export const PopupDialog = (props: {
                 id="bootstrap-input-title"
                 defaultValue=""
                 value={inputTitle}
+                onChange={(e) => setInputTitle(e.target.value)}
                 placeholder="Enter the title..."
                 className="w-full"
               />

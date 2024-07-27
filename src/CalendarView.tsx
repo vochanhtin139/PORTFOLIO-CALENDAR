@@ -4,6 +4,7 @@ import Sheet from "@mui/joy/Sheet";
 import PropTypes from "prop-types";
 import { PopupDialog } from "./PopupDialog";
 import { useState } from "react";
+import { LinearGradient } from "react-text-gradients";
 
 const Item = styled(Sheet)(({ theme }) => ({
   position: "relative",
@@ -39,37 +40,6 @@ const Item = styled(Sheet)(({ theme }) => ({
   },
 }));
 
-const days = [
-  {
-    day: "Mon, Jul 8th",
-    slots: [" --- ", " --- ", " --- ", "Free", " --- ", "Pending"],
-  },
-  {
-    day: "Tue, Jul 9th",
-    slots: [" --- ", " --- ", " --- ", "Occupied", " --- ", " --- "],
-  },
-  {
-    day: "Wed, Jul 10th",
-    slots: [" --- ", " --- ", " --- ", " --- ", "Free", "Occupied"],
-  },
-  {
-    day: "Thu, Jul 11th",
-    slots: [" --- ", " --- ", " --- ", " --- ", "Pending", " --- "],
-  },
-  {
-    day: "Fri, Jul 12th",
-    slots: [" --- ", " --- ", " --- ", "Occupied", " --- ", " --- "],
-  },
-  {
-    day: "Sat, Jul 13th",
-    slots: [" --- ", "Pending", " --- ", "Free", "Pending", "Free"],
-  },
-  {
-    day: "Sun, Jul 14th",
-    slots: ["Free", "Free", "Free", "Occupied", "Free", "Occupied"],
-  },
-];
-
 const CalendarContainer = styled("div")`
   background: linear-gradient(
     to bottom right,
@@ -80,9 +50,103 @@ const CalendarContainer = styled("div")`
   border-radius: 15px; /* Adjust for rounded corners */
 `;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CalendarView = (props: { snackbarState: any; setSnackbarState: any }) => {
   const [open, setOpen] = useState(false);
+  const [dayID, setDaysID] = useState(-1);
+  const [slotID, setSlotID] = useState(-1);
+
+  const [days, setDays] = useState([
+    {
+      id: 0,
+      day: "Mon, Jul 8th",
+      slots: [
+        { id: 0, slot: " --- " },
+        { id: 1, slot: " --- " },
+        { id: 2, slot: " --- " },
+        { id: 3, slot: "Free" },
+        { id: 4, slot: " --- " },
+        { id: 5, slot: "Pending" },
+      ],
+    },
+    {
+      id: 1,
+      day: "Tue, Jul 9th",
+      slots: [
+        { id: 0, slot: " --- " },
+        { id: 1, slot: " --- " },
+        { id: 2, slot: " --- " },
+        { id: 3, slot: "Occupied" },
+        { id: 4, slot: " --- " },
+        { id: 5, slot: " --- " },
+      ],
+    },
+    {
+      id: 2,
+      day: "Wed, Jul 10th",
+      slots: [
+        { id: 0, slot: " --- " },
+        { id: 1, slot: " --- " },
+        { id: 2, slot: " --- " },
+        { id: 3, slot: " --- " },
+        { id: 4, slot: "Free" },
+        { id: 5, slot: "Occupied" },
+      ],
+    },
+    {
+      id: 3,
+      day: "Thu, Jul 11th",
+      slots: [
+        { id: 0, slot: " --- " },
+        { id: 1, slot: " --- " },
+        { id: 2, slot: " --- " },
+        { id: 3, slot: " --- " },
+        { id: 4, slot: "Pending" },
+        { id: 5, slot: " --- " },
+      ],
+    },
+    {
+      id: 4,
+      day: "Fri, Jul 12th",
+      slots: [
+        { id: 0, slot: " --- " },
+        { id: 1, slot: " --- " },
+        { id: 2, slot: " --- " },
+        { id: 3, slot: "Occupied" },
+        { id: 4, slot: " --- " },
+        { id: 5, slot: " --- " },
+      ],
+    },
+    {
+      id: 5,
+      day: "Sat, Jul 13th",
+      slots: [
+        { id: 0, slot: " --- " },
+        { id: 1, slot: "Pending" },
+        { id: 2, slot: " --- " },
+        { id: 3, slot: "Free" },
+        { id: 4, slot: "Pending" },
+        { id: 5, slot: "Free" },
+      ],
+    },
+    {
+      id: 6,
+      day: "Sun, Jul 14th",
+      slots: [
+        { id: 0, slot: "Free" },
+        { id: 1, slot: "Free" },
+        { id: 2, slot: "Free" },
+        { id: 3, slot: "Occupied" },
+        { id: 4, slot: "Free" },
+        { id: 5, slot: "Occupied" },
+      ],
+    },
+  ]);
+
+  const handleBookSuccessfully = () => {
+    let newDays = [...days];
+    newDays[dayID].slots[slotID].slot = "Pending";
+    setDays(newDays);
+  };
 
   return (
     <CalendarContainer className="fixed top-24 left-20 right-20 bottom-36 z-10 overflow-scroll">
@@ -109,46 +173,80 @@ const CalendarView = (props: { snackbarState: any; setSnackbarState: any }) => {
         ))}
       </Grid>
 
-      {days.map((day, dayIndex) => (
-        <Grid container sx={{ flexGrow: 1 }} key={dayIndex}>
+      {days.map((day) => (
+        <Grid container sx={{ flexGrow: 1 }} key={day.id}>
           <Grid xs={3}>
             <Item style={{ fontSize: 32 }}>{day.day}</Item>
           </Grid>
-          {day.slots.map((slot, slotIndex) => (
-            <Grid xs key={slotIndex} fontSize={24}>
-              <Item
-                onClick={() => {
-                  if (slot !== " --- ") setOpen(true);
-                }}
-              >
-                <span
-                  style={{
-                    zIndex: 100,
-                    ...(slot === "Pending" && {
-                      background: "linear-gradient(#FFFFFF, #00F0FF)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      fontWeight: "bold",
-                    }),
-                    ...(slot === "Occupied" && {
-                      background: "linear-gradient(#FFFFFF, #FF0000)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      fontWeight: "bold",
-                    }),
-                    ...(slot === "Free" && {
-                      background: "linear-gradient(#FFFFFF, #0FBE00)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      fontWeight: "bold",
-                    }),
+          {day.slots.map((slot) => {
+            return (
+              <Grid xs key={day.id} fontSize={24}>
+                <Item
+                  onClick={(e) => {
+                    if (slot.slot !== " --- ") {
+                      setOpen(true);
+                      setDaysID(day.id);
+                      setSlotID(slot.id);
+                    }
                   }}
                 >
-                  {slot}
-                </span>
-              </Item>
-            </Grid>
-          ))}
+                  <span
+                    key={day.id * 6 + slot.id}
+                    // style={{
+                    //   zIndex: 100,
+                    //   ...(slot.slot === "Pending" && {
+                    //     background: "linear-gradient(#FFFFFF, #00F0FF)",
+                    //     // WebkitBackgroundClip: "text",
+                    //     // WebkitTextFillColor: "transparent",
+                    //     // fontWeight: "bold",
+                    //   }),
+                    //   ...(slot.slot === "Occupied" && {
+                    //     background: "linear-gradient(#FFFFFF, #FF0000)",
+                    //     WebkitBackgroundClip: "text",
+                    //     WebkitTextFillColor: "transparent",
+                    //     fontWeight: "bold",
+                    //   }),
+                    //   ...(slot.slot === "Free" && {
+                    //     background: "linear-gradient(#FFFFFF, #0FBE00)",
+                    //     WebkitBackgroundClip: "text",
+                    //     WebkitTextFillColor: "transparent",
+                    //     fontWeight: "bold",
+                    //   }),
+                    // }}
+                  >
+                    {slot.slot === "Pending" && (
+                      <LinearGradient
+                        gradient={["to bottom", "#FFFFFF ,#00F0FF"]}
+                      >
+                        {slot.slot}
+                      </LinearGradient>
+                    )}
+                    {slot.slot === "Occupied" && (
+                      <LinearGradient
+                        gradient={["to bottom", "#FFFFFF ,#FF0000"]}
+                      >
+                        {slot.slot}
+                      </LinearGradient>
+                    )}
+                    {slot.slot === "Free" && (
+                      <LinearGradient
+                        gradient={["to bottom", "#FFFFFF ,#0FBE00"]}
+                      >
+                        {slot.slot}
+                      </LinearGradient>
+                    )}
+                    {(slot.slot !== "Free" && slot.slot !== "Occupied" && slot.slot !== "Pending") && (
+                      <LinearGradient
+                        gradient={["to bottom", "#FFFFFF ,#FFFFFF"]}
+                      >
+                        {slot.slot}
+                      </LinearGradient>
+                    )}
+                  </span>
+                </Item>
+              </Grid>
+            );
+          })}
         </Grid>
       ))}
 
@@ -157,6 +255,7 @@ const CalendarView = (props: { snackbarState: any; setSnackbarState: any }) => {
         setOpen={setOpen}
         snackbarState={props.snackbarState}
         setSnackbarState={props.setSnackbarState}
+        handleBookSuccessfully={handleBookSuccessfully}
       />
     </CalendarContainer>
   );
