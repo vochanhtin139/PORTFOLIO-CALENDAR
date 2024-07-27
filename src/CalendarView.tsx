@@ -81,13 +81,11 @@ const CalendarContainer = styled("div")`
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CalendarView = (props: {snackbarState: any, setSnackbarState: any}) => {
+const CalendarView = (props: { snackbarState: any; setSnackbarState: any }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <CalendarContainer
-      className="fixed top-24 left-20 right-20 bottom-36 z-10 overflow-scroll"
-    >
+    <CalendarContainer className="fixed top-24 left-20 right-20 bottom-36 z-10 overflow-scroll">
       <style>{`
         div::-webkit-scrollbar {
           display: none; /* For Chrome, Safari, and Opera */
@@ -120,8 +118,7 @@ const CalendarView = (props: {snackbarState: any, setSnackbarState: any}) => {
             <Grid xs key={slotIndex} fontSize={24}>
               <Item
                 onClick={() => {
-                  if (slot !== " --- ")
-                  setOpen(true);
+                  if (slot !== " --- ") setOpen(true);
                 }}
               >
                 <span
@@ -140,7 +137,7 @@ const CalendarView = (props: {snackbarState: any, setSnackbarState: any}) => {
                       fontWeight: "bold",
                     }),
                     ...(slot === "Free" && {
-                      background: "linear-gradient(#FFFFFF, #00FF00)",
+                      background: "linear-gradient(#FFFFFF, #0FBE00)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       fontWeight: "bold",
@@ -155,7 +152,12 @@ const CalendarView = (props: {snackbarState: any, setSnackbarState: any}) => {
         </Grid>
       ))}
 
-      <PopupDialog open={open} setOpen={setOpen} snackbarState={props.snackbarState} setSnackbarState={props.setSnackbarState}/>
+      <PopupDialog
+        open={open}
+        setOpen={setOpen}
+        snackbarState={props.snackbarState}
+        setSnackbarState={props.setSnackbarState}
+      />
     </CalendarContainer>
   );
 };
