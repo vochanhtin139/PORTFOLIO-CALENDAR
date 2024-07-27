@@ -46,11 +46,14 @@ const StyledButton = styled(Button)({
 export const PopupDialog = (props: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  snackbarState: any;
+  setSnackbarState: any;
 }) => {
   const [loading, setLoading] = React.useState(false);
 
   const handleClose = () => {
     props.setOpen(false);
+    props.setSnackbarState(true);
   };
 
   const handleClick = () => {
@@ -76,10 +79,16 @@ export const PopupDialog = (props: {
         fullWidth={true}
         PaperProps={{
           style: {
-            borderRadius: 15,
-            borderImage: "linear-gradient(#FF6B00,#0047FF) 1",
-            borderStyle: "solid",
-            borderWidth: 5,
+            // borderRadius: 15,
+            // borderImage: "linear-gradient(#FF6B00,#0047FF) 1",
+            // borderStyle: "solid",
+            // borderWidth: 5,
+            border: "5px solid transparent",
+            backgroundImage:
+              "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
+            backgroundOrigin: "border-box",
+            backgroundClip: "padding-box, border-box",
+            borderRadius: "10px",
           },
           component: "form",
           onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
@@ -125,7 +134,7 @@ export const PopupDialog = (props: {
           </h1>
           <FormControl variant="standard" className="w-full">
             <div className="flex justify-between">
-              <div className="w-9/12">
+              <div className="w-8/12">
                 {/* <InputLabel shrink htmlFor="bootstrap-input-name">
                   Name
                 </InputLabel> */}
@@ -137,9 +146,53 @@ export const PopupDialog = (props: {
                   className="w-full "
                 />
               </div>
-              <StyledButton variant="outlined" startIcon={<TwitterOutlined />}>
-                LinkedIn
-              </StyledButton>
+              <div className="flex flex-col-reverse">
+                <Button
+                  startIcon={
+                    <img
+                      style={{ width: "20px", height: "20px" }}
+                      src="/Linkedin.png"
+                      alt="Linkedin"
+                    />
+                  }
+                  // startIcon={<TwitterOutlined />}
+                  variant="outlined"
+                  size="large"
+                  style={{
+                    color: "#656BFF",
+                    border: "3px solid transparent",
+                    backgroundImage:
+                      "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
+                    backgroundOrigin: "border-box",
+                    backgroundClip: "padding-box, border-box",
+                    padding: "9px 21px",
+                    borderRadius: "10px",
+                    position: "relative",
+                    fontWeight: "bold",
+                    fontFamily: [
+                      "-apple-system",
+                      "BlinkMacSystemFont",
+                      '"Segoe UI"',
+                      "Roboto",
+                      '"Helvetica Neue"',
+                      "Arial",
+                      "sans-serif",
+                      '"Apple Color Emoji"',
+                      '"Segoe UI Emoji"',
+                      '"Segoe UI Symbol"',
+                    ].join(","),
+                  }}
+                >
+                  LinkedIn
+                </Button>
+                {/* <StyledButton
+                  className="absolute my-4"
+                  variant="outlined"
+                  startIcon={<TwitterOutlined />}
+                >
+                  LinkedIn
+                </StyledButton> */}
+              </div>
             </div>
 
             <div className="mt-4">
@@ -166,10 +219,12 @@ export const PopupDialog = (props: {
                 placeholder="write something..."
                 sx={{
                   bgcolor: "#F3F6F9",
-                  borderRadius: 8,
-                  borderImage: "linear-gradient(to right, #FF0000, #0029FF) 1",
-                  borderStyle: "solid",
-                  borderWidth: 3,
+                  border: "3px solid transparent",
+                backgroundImage:
+                  "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box, border-box",
+                borderRadius: "10px",
                 }}
               />
             </div>
@@ -184,7 +239,31 @@ export const PopupDialog = (props: {
               loading={loading}
               loadingPosition="end"
               variant="outlined"
-              style={{ margin: "0px 0px 16px 0px" }}
+              style={{
+                margin: "0px 0px 16px 0px",
+                color: "#656BFF",
+                border: "3px solid transparent",
+                backgroundImage:
+                  "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box, border-box",
+                padding: "9px 21px",
+                borderRadius: "10px",
+                position: "relative",
+                fontWeight: "bold",
+                fontFamily: [
+                  "-apple-system",
+                  "BlinkMacSystemFont",
+                  '"Segoe UI"',
+                  "Roboto",
+                  '"Helvetica Neue"',
+                  "Arial",
+                  "sans-serif",
+                  '"Apple Color Emoji"',
+                  '"Segoe UI Emoji"',
+                  '"Segoe UI Symbol"',
+                ].join(","),
+              }}
             >
               <span style={{ color: "black", fontWeight: "bolder" }}>Book</span>
             </LoadingButton>

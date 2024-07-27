@@ -81,15 +81,12 @@ const CalendarContainer = styled("div")`
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CalendarView = (props: any) => {
+const CalendarView = (props: {snackbarState: any, setSnackbarState: any}) => {
   const [open, setOpen] = useState(false);
 
   return (
     <CalendarContainer
-      {...props}
-      style={{
-        overflowY: "scroll",
-      }}
+      className="fixed top-24 left-20 right-20 bottom-36 z-10 overflow-scroll"
     >
       <style>{`
         div::-webkit-scrollbar {
@@ -151,7 +148,7 @@ const CalendarView = (props: any) => {
         </Grid>
       ))}
 
-      <PopupDialog open={open} setOpen={setOpen} />
+      <PopupDialog open={open} setOpen={setOpen} snackbarState={props.snackbarState} setSnackbarState={props.setSnackbarState}/>
     </CalendarContainer>
   );
 };
