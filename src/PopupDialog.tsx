@@ -12,6 +12,7 @@ import { Textarea } from "@mui/joy";
 import { LoadingButton } from "@mui/lab";
 import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/material/styles";
+import { LinearGradient } from "react-text-gradients";
 
 const StyledButton = styled(Button)({
   marginTop: 39,
@@ -49,19 +50,23 @@ export const PopupDialog = (props: {
   snackbarState: any;
   setSnackbarState: any;
   handleBookSuccessfully: any;
+  status: string;
+  date: string;
+  time: string;
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [linkedinLoading, setLinkedinLoading] = React.useState(false);
-  const [linkedinButtonContent, setLinkedinButtonContent] = React.useState("Linkedin")
-  const [inputName, setInputName] = React.useState("")
-  const [inputTitle, setInputTitle] = React.useState("")
-  const [inputDescription, setInputDescription] = React.useState("")
+  const [linkedinButtonContent, setLinkedinButtonContent] =
+    React.useState("Linkedin");
+  const [inputName, setInputName] = React.useState("");
+  const [inputTitle, setInputTitle] = React.useState("");
+  const [inputDescription, setInputDescription] = React.useState("");
 
   const handleClose = () => {
     props.setOpen(false);
-    setInputName("")
-    setInputTitle("")
-    setInputDescription("")
+    setInputName("");
+    setInputTitle("");
+    setInputDescription("");
   };
 
   const handleClick = () => {
@@ -123,8 +128,8 @@ export const PopupDialog = (props: {
               WebkitTextFillColor: "transparent",
             }}
           >
-            <h1>Monday, July 8th</h1>
-            <h1>19:30 ~ 21</h1>
+            <h1>{props.date}</h1>
+            <h1>{props.time}</h1>
             <HighlightOffOutlinedIcon
               style={{
                 color: "C00F0C",
@@ -138,121 +143,163 @@ export const PopupDialog = (props: {
           </div>
         </DialogTitle>
         <DialogContent>
-          <h1 className="mb-5" style={{ fontSize: 32 }}>
-            <span className="font-extrabold">STATUS</span>:{" "}
-            <span className="font-extrabold text-green-600">FREE</span>
-          </h1>
-          <FormControl variant="standard" className="w-full">
+          {props.status === "Free" && (
+            <h1 className="mb-5" style={{ fontSize: 32 }}>
+              <span className="font-extrabold">Status</span>:{" "}
+              <span className="font-extrabold text-green-600">Free</span>
+            </h1>
+          )}
+
+          {props.status === "Pending" && (
             <div className="flex justify-between">
-              <div className="w-8/12">
-                {/* <InputLabel shrink htmlFor="bootstrap-input-name">
+              <h1 className="mb-5" style={{ fontSize: 32 }}>
+                <span className="font-extrabold">Status</span>:{" "}
+                <span className="font-extrabold text-blue-400">Pending</span>
+              </h1>
+
+              <h1 className="mb-5" style={{ fontSize: 32 }}>
+                <span className="font-extrabold">Queue</span>:{" "}
+                <LinearGradient
+                  gradient={["to bottom right", "#FF00C7 ,#001AFF"]}
+                >
+                  2
+                </LinearGradient>
+              </h1>
+            </div>
+          )}
+
+          {props.status === "Occupied" && (
+            <h1 className="mb-5" style={{ fontSize: 32 }}>
+              <span className="font-extrabold">Status</span>:{" "}
+              <span className="font-extrabold text-red-500">Occupied</span>
+            </h1>
+          )}
+
+          <FormControl variant="standard" className="w-full">
+            {props.status !== "Occupied" && (
+              <>
+                <div className="flex justify-between">
+                  <div className="w-8/12">
+                    {/* <InputLabel shrink htmlFor="bootstrap-input-name">
                   Name
                 </InputLabel> */}
-                <p className=" mb-1">Name:</p>
-                <BootstrapInput
-                  id="bootstrap-input-name"
-                  defaultValue=""
-                  value={inputName}
-                  onChange={(e) => setInputName(e.target.value)}
-                  placeholder="Enter your name..."
-                  className="w-full "
-                />
-              </div>
-              <div className="flex flex-col-reverse">
-                <LoadingButton
-                  loading={linkedinLoading}
-                  startIcon={
-                    <img
-                      style={{ width: "20px", height: "20px" }}
-                      src="/Linkedin.png"
-                      alt="Linkedin"
+                    <p className=" mb-1">Name:</p>
+                    <BootstrapInput
+                      id="bootstrap-input-name"
+                      defaultValue=""
+                      value={inputName}
+                      onChange={(e) => setInputName(e.target.value)}
+                      placeholder="Enter your name..."
+                      className="w-full "
                     />
-                  }
-                  // startIcon={<TwitterOutlined />}
-                  variant="outlined"
-                  size="large"
-                  loadingPosition="start"
-                  onClick={() => {
-                    setLinkedinLoading(true);
-                    setLinkedinButtonContent("signing in...")
-                    setTimeout(() => {
-                      setLinkedinLoading(false);
-                      setLinkedinButtonContent("Linkedin")
-                      setInputName("Nguyen Van A")
-                      // setInputTitle("[COLLABORATION] Looking for a software engineer")
-                      // setInputDescription("I am looking for a software engineer to work on a new project. Please contact me if you are interested.")
-                    }, 2000);
-                  }}
-                  style={{
-                    color: "#656BFF",
-                    border: "3px solid transparent",
-                    backgroundImage:
-                      "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
-                    backgroundOrigin: "border-box",
-                    backgroundClip: "padding-box, border-box",
-                    padding: "9px 21px",
-                    borderRadius: "10px",
-                    position: "relative",
-                    fontWeight: "bold",
-                    fontFamily: [
-                      "-apple-system",
-                      "BlinkMacSystemFont",
-                      '"Segoe UI"',
-                      "Roboto",
-                      '"Helvetica Neue"',
-                      "Arial",
-                      "sans-serif",
-                      '"Apple Color Emoji"',
-                      '"Segoe UI Emoji"',
-                      '"Segoe UI Symbol"',
-                    ].join(","),
-                  }}
-                >
-                  {linkedinButtonContent}
-                </LoadingButton>
-                {/* <StyledButton
+                  </div>
+                  <div className="flex flex-col-reverse">
+                    <LoadingButton
+                      loading={linkedinLoading}
+                      startIcon={
+                        <img
+                          style={{ width: "20px", height: "20px" }}
+                          src="/Linkedin.png"
+                          alt="Linkedin"
+                        />
+                      }
+                      // startIcon={<TwitterOutlined />}
+                      variant="outlined"
+                      size="large"
+                      loadingPosition="start"
+                      onClick={() => {
+                        setLinkedinLoading(true);
+                        setLinkedinButtonContent("signing in...");
+                        setTimeout(() => {
+                          setLinkedinLoading(false);
+                          setLinkedinButtonContent("Linkedin");
+                          setInputName("Nguyen Van A");
+                          // setInputTitle("[COLLABORATION] Looking for a software engineer")
+                          // setInputDescription("I am looking for a software engineer to work on a new project. Please contact me if you are interested.")
+                        }, 2000);
+                      }}
+                      style={{
+                        color: "#656BFF",
+                        border: "3px solid transparent",
+                        backgroundImage:
+                          "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
+                        backgroundOrigin: "border-box",
+                        backgroundClip: "padding-box, border-box",
+                        padding: "9px 21px",
+                        borderRadius: "10px",
+                        position: "relative",
+                        fontWeight: "bold",
+                        fontFamily: [
+                          "-apple-system",
+                          "BlinkMacSystemFont",
+                          '"Segoe UI"',
+                          "Roboto",
+                          '"Helvetica Neue"',
+                          "Arial",
+                          "sans-serif",
+                          '"Apple Color Emoji"',
+                          '"Segoe UI Emoji"',
+                          '"Segoe UI Symbol"',
+                        ].join(","),
+                      }}
+                    >
+                      {linkedinButtonContent}
+                    </LoadingButton>
+                    {/* <StyledButton
                   className="absolute my-4"
                   variant="outlined"
                   startIcon={<TwitterOutlined />}
                 >
                   LinkedIn
                 </StyledButton> */}
-              </div>
-            </div>
+                  </div>
+                </div>
 
-            <div className="mt-4">
+                <div className="mt-4">
+                  {/* <InputLabel shrink htmlFor="bootstrap-input-title">
+                Title
+              </InputLabel> */}
+                  <p className="mb-1">Title:</p>
+                  <BootstrapInput
+                    id="bootstrap-input-title"
+                    defaultValue=""
+                    value={inputTitle}
+                    onChange={(e) => setInputTitle(e.target.value)}
+                    placeholder="Enter the title..."
+                    className="w-full"
+                  />
+                </div>
+              </>
+            )}
+
+            <div className={props.status !== "Occupied" ? "mt-4" : "mt-0"}>
               {/* <InputLabel shrink htmlFor="bootstrap-input-title">
                 Title
               </InputLabel> */}
-              <p className="mb-1">Title:</p>
-              <BootstrapInput
-                id="bootstrap-input-title"
-                defaultValue=""
-                value={inputTitle}
-                onChange={(e) => setInputTitle(e.target.value)}
-                placeholder="Enter the title..."
-                className="w-full"
-              />
-            </div>
-
-            <div className="mt-4">
-              {/* <InputLabel shrink htmlFor="bootstrap-input-title">
-                Title
-              </InputLabel> */}
-              <p className="mb-1">Description:</p>
+              <p className="mb-1">
+                {props.status !== "Occupied"
+                  ? "Description"
+                  : "Message from owner"}
+                :
+              </p>
               <Textarea
-                defaultValue={inputDescription}
+                defaultValue={
+                  props.status !== "Occupied"
+                    ? inputDescription
+                    : "I'm sorry, but I have a urgent matter that requires my immediate attention and will not be able to make our scheduled meeting today. Please let me know if there is anything pressing we need to discuss, and we can work to reschedule."
+                }
                 aria-label="minimum height"
-                minRows={10}
+                minRows={props.status === "Occupied" ? 10 : 5}
                 placeholder="write something..."
+                disabled={props.status === "Occupied" ? true : false}
                 sx={{
                   bgcolor: "#F3F6F9",
                   border: "3px solid transparent",
-                backgroundImage:
-                  "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
-                backgroundOrigin: "border-box",
-                backgroundClip: "padding-box, border-box",
-                borderRadius: "10px",
+                  backgroundImage:
+                    "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
+                  backgroundOrigin: "border-box",
+                  backgroundClip: "padding-box, border-box",
+                  borderRadius: "10px",
                 }}
               />
             </div>
@@ -260,41 +307,80 @@ export const PopupDialog = (props: {
         </DialogContent>
         <DialogActions>
           <div className="flex justify-center w-full">
-            <LoadingButton
-              size="small"
-              onClick={handleClick}
-              startIcon={<SendIcon />}
-              loading={loading}
-              loadingPosition="start"
-              variant="outlined"
-              style={{
-                margin: "0px 0px 16px 0px",
-                color: "#656BFF",
-                border: "3px solid transparent",
-                backgroundImage:
-                  "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
-                backgroundOrigin: "border-box",
-                backgroundClip: "padding-box, border-box",
-                padding: "9px 21px",
-                borderRadius: "10px",
-                position: "relative",
-                fontWeight: "bold",
-                fontFamily: [
-                  "-apple-system",
-                  "BlinkMacSystemFont",
-                  '"Segoe UI"',
-                  "Roboto",
-                  '"Helvetica Neue"',
-                  "Arial",
-                  "sans-serif",
-                  '"Apple Color Emoji"',
-                  '"Segoe UI Emoji"',
-                  '"Segoe UI Symbol"',
-                ].join(","),
-              }}
-            >
-              <span style={{ color: "black", fontWeight: "bolder" }}>Book</span>
-            </LoadingButton>
+            {props.status !== "Occupied" ? (
+              <LoadingButton
+                size="small"
+                onClick={handleClick}
+                startIcon={<SendIcon />}
+                loading={loading}
+                loadingPosition="start"
+                variant="outlined"
+                style={{
+                  margin: "0px 0px 16px 0px",
+                  color: "#656BFF",
+                  border: "3px solid transparent",
+                  backgroundImage:
+                    "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
+                  backgroundOrigin: "border-box",
+                  backgroundClip: "padding-box, border-box",
+                  padding: "9px 21px",
+                  borderRadius: "10px",
+                  position: "relative",
+                  fontWeight: "bold",
+                  fontFamily: [
+                    "-apple-system",
+                    "BlinkMacSystemFont",
+                    '"Segoe UI"',
+                    "Roboto",
+                    '"Helvetica Neue"',
+                    "Arial",
+                    "sans-serif",
+                    '"Apple Color Emoji"',
+                    '"Segoe UI Emoji"',
+                    '"Segoe UI Symbol"',
+                  ].join(","),
+                }}
+              >
+                <span style={{ color: "black", fontWeight: "bolder" }}>
+                  Book
+                </span>
+              </LoadingButton>
+            ) : (
+              <Button
+                size="small"
+                onClick={() => {props.setOpen(false);}}
+                variant="outlined"
+                style={{
+                  margin: "0px 0px 16px 0px",
+                  color: "#656BFF",
+                  border: "3px solid transparent",
+                  backgroundImage:
+                    "linear-gradient(#fff, #fff), linear-gradient(to right, #FF0000, #0029FF)",
+                  backgroundOrigin: "border-box",
+                  backgroundClip: "padding-box, border-box",
+                  padding: "9px 21px",
+                  borderRadius: "10px",
+                  position: "relative",
+                  fontWeight: "bold",
+                  fontFamily: [
+                    "-apple-system",
+                    "BlinkMacSystemFont",
+                    '"Segoe UI"',
+                    "Roboto",
+                    '"Helvetica Neue"',
+                    "Arial",
+                    "sans-serif",
+                    '"Apple Color Emoji"',
+                    '"Segoe UI Emoji"',
+                    '"Segoe UI Symbol"',
+                  ].join(","),
+                }}
+              >
+                <span style={{ color: "black", fontWeight: "bolder" }}>
+                  Contact
+                </span>
+              </Button>
+            )}
           </div>
         </DialogActions>
       </Dialog>

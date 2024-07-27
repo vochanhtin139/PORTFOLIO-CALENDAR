@@ -41,7 +41,8 @@ export const CursorController: React.FC = () => {
         tagName === "button" ||
         parentTagName === "button" ||
         tagName === "input" ||
-        tagName === "textarea"
+        tagName === "textarea" ||
+        tagName === "a"
       ) {
         setHoverButton(true);
       } else {

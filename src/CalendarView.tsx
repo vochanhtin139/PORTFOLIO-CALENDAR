@@ -54,6 +54,9 @@ const CalendarView = (props: { snackbarState: any; setSnackbarState: any }) => {
   const [open, setOpen] = useState(false);
   const [dayID, setDaysID] = useState(-1);
   const [slotID, setSlotID] = useState(-1);
+  const [status, setStatus] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
 
   const [days, setDays] = useState([
     {
@@ -142,6 +145,15 @@ const CalendarView = (props: { snackbarState: any; setSnackbarState: any }) => {
     },
   ]);
 
+  const timeFrame = [
+    "8 ~ 9.30",
+    "9.30 ~ 11",
+    "15 ~ 16.30",
+    "16.30 ~ 18",
+    "19.30 ~ 21",
+    "21 ~ 22.30",
+  ];
+
   const handleBookSuccessfully = () => {
     let newDays = [...days];
     newDays[dayID].slots[slotID].slot = "Pending";
@@ -187,6 +199,9 @@ const CalendarView = (props: { snackbarState: any; setSnackbarState: any }) => {
                       setOpen(true);
                       setDaysID(day.id);
                       setSlotID(slot.id);
+                      setStatus(slot.slot);
+                      setDate(day.day);
+                      setTime(timeFrame[slot.id]);
                     }
                   }}
                 >
@@ -235,13 +250,15 @@ const CalendarView = (props: { snackbarState: any; setSnackbarState: any }) => {
                         {slot.slot}
                       </LinearGradient>
                     )}
-                    {(slot.slot !== "Free" && slot.slot !== "Occupied" && slot.slot !== "Pending") && (
-                      <LinearGradient
-                        gradient={["to bottom", "#FFFFFF ,#FFFFFF"]}
-                      >
-                        {slot.slot}
-                      </LinearGradient>
-                    )}
+                    {slot.slot !== "Free" &&
+                      slot.slot !== "Occupied" &&
+                      slot.slot !== "Pending" && (
+                        <LinearGradient
+                          gradient={["to bottom", "#FFFFFF ,#FFFFFF"]}
+                        >
+                          {slot.slot}
+                        </LinearGradient>
+                      )}
                   </span>
                 </Item>
               </Grid>
@@ -256,6 +273,9 @@ const CalendarView = (props: { snackbarState: any; setSnackbarState: any }) => {
         snackbarState={props.snackbarState}
         setSnackbarState={props.setSnackbarState}
         handleBookSuccessfully={handleBookSuccessfully}
+        status={status}
+        time={time}
+        date={date}
       />
     </CalendarContainer>
   );
