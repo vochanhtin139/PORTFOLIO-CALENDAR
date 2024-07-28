@@ -45,7 +45,7 @@ const CalendarContainer = styled("div")`
     to bottom right,
     #ff7a00,
     #0c0099,
-    rgba(0, 0, 0, 0.5)
+    rgba(0, 0, 0, 0.1)
   ); /* Adjust the gradient */
   padding: 2px; /* Adjust the spacing */
   border-radius: 15px; /* Adjust for rounded corners */
