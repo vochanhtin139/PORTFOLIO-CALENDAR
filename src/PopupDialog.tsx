@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import BootstrapInput from "./BootstrapInput";
-import { FormControl } from "@mui/material";
+import { FormControl, FormHelperText } from "@mui/material";
 import { TwitterOutlined } from "@ant-design/icons";
 import { Textarea } from "@mui/joy";
 import { LoadingButton } from "@mui/lab";
@@ -61,6 +61,9 @@ export const PopupDialog = (props: {
   const [inputName, setInputName] = React.useState("");
   const [inputTitle, setInputTitle] = React.useState("");
   const [inputDescription, setInputDescription] = React.useState("");
+  const [nameHelperText, setNameHelperText] = React.useState("");
+  const [titleHelperText, setTitleHelperText] = React.useState("");
+  const [descriptionHelperText, setDescriptionHelperText] = React.useState("");
 
   const handleClose = () => {
     props.setOpen(false);
@@ -70,13 +73,38 @@ export const PopupDialog = (props: {
   };
 
   const handleClick = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      handleClose();
-      props.setSnackbarState(true);
-      props.handleBookSuccessfully();
-    }, 2000);
+    let isValid = true;
+
+    if (inputName.trim() === "") {
+      setNameHelperText("Name cannot be empty");
+      isValid = false;
+    } else {
+      setNameHelperText("");
+    }
+
+    if (inputTitle.trim() === "") {
+      setTitleHelperText("Title cannot be empty");
+      isValid = false;
+    } else {
+      setTitleHelperText("");
+    }
+
+    if (inputDescription.trim() === "") {
+      setDescriptionHelperText("Description cannot be empty");
+      isValid = false;
+    } else {
+      setDescriptionHelperText("");
+    }
+
+    if (isValid) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        handleClose();
+        props.setSnackbarState(true);
+        props.handleBookSuccessfully();
+      }, 2000);
+    }
   };
 
   return (
@@ -185,13 +213,20 @@ export const PopupDialog = (props: {
                 </InputLabel> */}
                     <p className=" mb-1">Name:</p>
                     <BootstrapInput
+                      required
                       id="bootstrap-input-name"
                       defaultValue=""
                       value={inputName}
-                      onChange={(e) => setInputName(e.target.value)}
+                      onChange={(e) => {
+                        setInputName(e.target.value);
+                      }}
                       placeholder="Enter your name..."
                       className="w-full "
+                      error={inputName === ""}
                     />
+                    <FormHelperText error={inputName === ""}>
+                      {nameHelperText}
+                    </FormHelperText>{" "}
                   </div>
                   <div className="flex flex-col-reverse">
                     <LoadingButton
@@ -261,13 +296,18 @@ export const PopupDialog = (props: {
               </InputLabel> */}
                   <p className="mb-1">Title:</p>
                   <BootstrapInput
+                    required
                     id="bootstrap-input-title"
                     defaultValue=""
                     value={inputTitle}
                     onChange={(e) => setInputTitle(e.target.value)}
                     placeholder="Enter the title..."
                     className="w-full"
+                    error={inputTitle === ""}
                   />
+                  <FormHelperText error={inputTitle === ""}>
+                    {titleHelperText}
+                  </FormHelperText>{" "}
                 </div>
               </>
             )}
@@ -283,6 +323,7 @@ export const PopupDialog = (props: {
                 :
               </p>
               <Textarea
+                required
                 defaultValue={
                   props.status !== "Occupied"
                     ? inputDescription
@@ -301,7 +342,11 @@ export const PopupDialog = (props: {
                   backgroundClip: "padding-box, border-box",
                   borderRadius: "10px",
                 }}
+                onChange={(e) => setInputDescription(e.target.value)}
               />
+              <FormHelperText error={inputDescription === ""}>
+                {descriptionHelperText}
+              </FormHelperText>{" "}
             </div>
           </FormControl>
         </DialogContent>
@@ -348,7 +393,9 @@ export const PopupDialog = (props: {
             ) : (
               <Button
                 size="small"
-                onClick={() => {props.setOpen(false);}}
+                onClick={() => {
+                  props.setOpen(false);
+                }}
                 variant="outlined"
                 style={{
                   margin: "0px 0px 16px 0px",
