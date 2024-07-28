@@ -166,6 +166,9 @@ export const PopupDialog = (props: {
               }}
               onClick={() => {
                 props.setOpen(false);
+                setDescriptionHelperText("");
+                setNameHelperText("");
+                setTitleHelperText("");
               }}
             />
           </div>
