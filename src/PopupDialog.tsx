@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -7,42 +8,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import BootstrapInput from "./BootstrapInput";
 import { FormControl, FormHelperText } from "@mui/material";
-import { TwitterOutlined } from "@ant-design/icons";
 import { Textarea } from "@mui/joy";
 import { LoadingButton } from "@mui/lab";
 import SendIcon from "@mui/icons-material/Send";
-import { styled } from "@mui/material/styles";
 import { LinearGradient } from "react-text-gradients";
-
-const StyledButton = styled(Button)({
-  marginTop: 39,
-  height: 45,
-  boxShadow: "none",
-  textTransform: "none",
-  fontSize: 16,
-  padding: "6px 12px",
-  border: "1px solid",
-  borderRadius: 8,
-  lineHeight: 1.5,
-  color: "#656BFF",
-  backgroundColor: "#fff",
-  borderColor: "linear-gradient(#FF0000,#0029FF)",
-  fontFamily: "K2D",
-  "&:hover": {
-    backgroundColor: "#0069d9",
-    color: "#fff",
-    borderColor: "#0062cc",
-    boxShadow: "none",
-  },
-  "&:active": {
-    boxShadow: "none",
-    backgroundColor: "#0062cc",
-    borderColor: "#005cbf",
-  },
-  "&:focus": {
-    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
-  },
-});
 
 export const PopupDialog = (props: {
   open: boolean;
