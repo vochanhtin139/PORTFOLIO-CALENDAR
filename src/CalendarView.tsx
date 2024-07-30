@@ -156,7 +156,7 @@ const CalendarView = (props: { snackbarState: any; setSnackbarState: any }) => {
   ];
 
   const handleBookSuccessfully = () => {
-    let newDays = [...days];
+    const newDays = [...days];
     newDays[dayID].slots[slotID].slot = "Pending";
     setDays(newDays);
   };

@@ -1,6 +1,5 @@
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import { BorderColor } from "@mui/icons-material";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
